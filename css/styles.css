@@ -176,7 +176,7 @@ footer p {
 }
 
 main {
-  min-height: calc(100vh - 210px);
+  min-height: calc(100vh - 300px);
 }
 
 a.custom-card,
