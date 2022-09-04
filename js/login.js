@@ -10,6 +10,6 @@ function attemptLogin() {
     if(validateLogin()) {
         window.localStorage.setItem("user", document.getElementById("email-input").value);
         window.localStorage.setItem("password", document.getElementById("password-input").value);
-        window.location.href = "/main.html";
+        window.location.href = "main.html";
     }
 }
