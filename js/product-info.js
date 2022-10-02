@@ -27,7 +27,8 @@ function makeImgDiv(img) {
     imgCol.className = "col";
     let imgElem = document.createElement("img");
     imgElem.src = img;
-    imgElem.className = "mw-100"
+    imgElem.classList.add("w-100");
+    imgElem.classList.add("d-block");
     imgCol.appendChild(imgElem);
     return imgCol;
 }
@@ -41,26 +42,34 @@ async function reload(productId) {
     document.getElementById("sold").innerText = productInfo.soldCount;
     document.getElementById("name").innerText = productInfo.name;
     document.getElementById("previewImages").innerHTML = '';
+    // crear imagenes del carousel
     for(let img of productInfo.images) {
-        document.getElementById("previewImages").appendChild(makeImgDiv(img));
+        let imgEl = makeImgDiv(img);
+        imgEl.classList.add("carousel-item");
+        imgEl.classList.remove("col");
+        document.getElementById("previewImages").appendChild(imgEl);
+    }
+    let imgs = Array.from(document.getElementById("previewImages").children);
+    // marcar la primera como activa sino no se ven
+    if(imgs.length > 0) {
+        imgs[0].classList.add("active");
     }
     document.getElementById("related-products").innerHTML = "";
     for(let prod of productInfo.relatedProducts) {
-        let prodRow = document.createElement("tr");
-        let prodName = document.createElement("th");
-        prodName.scope = "row";
-        let prodLink = document.createElement("a");
-        prodLink.innerText = prod.name;
-        prodLink.addEventListener("click", function() {
+        let relProd = document.createElement("div");
+        relProd.classList.add("col");
+        relProd.classList.add("border");
+        let prodName = document.createElement("a");
+        prodName.innerText = prod.name;
+        prodName.addEventListener("click", function() {
             reload(prod.id);
         });
-        prodLink.href = "#";
-        prodName.appendChild(prodLink);
+        prodName.href = "#";
         let prodImg = document.createElement("td");
         prodImg.appendChild(makeImgDiv(prod.image));
-        prodRow.appendChild(prodName);
-        prodRow.appendChild(prodImg);
-        document.getElementById("related-products").appendChild(prodRow);
+        relProd.appendChild(prodName);
+        relProd.appendChild(prodImg);
+        document.getElementById("related-products").appendChild(relProd);
     }
     const productComments = await (await fetch(PRODUCT_INFO_COMMENTS_URL + productId + ".json")).json();
     document.getElementById("comments").innerHTML = "";

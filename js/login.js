@@ -1,3 +1,10 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // si ya hay usuario se va directo al main
+    if("user" in window.localStorage) {
+        window.location.href = "main.html";
+    }
+});
+
 function validateLogin() {
     let form = document.getElementById("login-form");
     // validamos el formulario
