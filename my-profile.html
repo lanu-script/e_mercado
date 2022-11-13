@@ -52,11 +52,76 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+      <h1 class="text-center mt-2">Información sobre el usuario <span id="userId"></span>
+        <img src="img/img_perfil.png" style="max-height: 75px; border: 1px solid black; border-radius: 5px;" id="userImg">
+      </h1>
+      <form class="needs-validation" novalidate id="formulario-datos">
+        <div class="row">
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="userfname-label">Primer nombre*</span>
+              <input type="text" class="form-control" aria-label="Primer nombre" aria-describedby="userfname-label"
+                id="userfname" required>
+              <div class="invalid-feedback">
+                Dato obligatorio
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="usersname-label">Segundo nombre</span>
+              <input type="text" class="form-control" aria-label="Segundo nombre" aria-describedby="usersname-label"
+                id="usersname">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="userflname-label">Primer apellido*</span>
+              <input type="text" class="form-control" aria-label="Primer apellido" aria-describedby="userflname-label"
+                id="userflname" required>
+              <div class="invalid-feedback">
+                Dato obligatorio
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="userslname-label">Segundo apellido</span>
+              <input type="text" class="form-control" aria-label="Segundo apellido" aria-describedby="userslname-label"
+                id="userslname">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="email-label">EMail</span>
+              <input type="text" class="form-control" aria-label="EMail" aria-describedby="email-label" id="email">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="phone-label">Teléfono de contacto*</span>
+              <input type="text" class="form-control" aria-label="Teléfono de contacto" aria-describedby="phone-label"
+                id="phone" required>
+              <div class="invalid-feedback">
+                Dato obligatorio
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="image-input">Subir imágen nueva</label>
+              <input type="file" class="form-control" id="image-input">
+            </div>
+          </div>
+        </div>
+      </form>
+      <hr />
+      <button class="d-block col-6 btn btn-primary" onclick="save()">Guardar cambios</button>
     </div>
   </main>
+  <div class="d-none alert alert-success" role="alert">
+    ¡Guardado con éxito!
+  </div>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">

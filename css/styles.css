@@ -101,6 +101,7 @@ footer p {
   width: 50%;
   left: 50%;
   transform: translate(-50%, 0);
+  z-index: 99999999;
 }
 
 .lds-ring {
