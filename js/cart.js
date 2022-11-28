@@ -35,15 +35,48 @@ function tryPurchase() {
             document.getElementById("method-feedback").classList.remove('d-block');
         }
         if (isValid && havePaytype) {
-            new bootstrap.Toast(document.getElementById("liveToast")).show();
+            let products = Array.from(document.getElementById("article-table").children).slice(1).map(p => {
+                return {
+                    'name': p.children[1].innerText,
+                    'cost': p.children[2].innerText,
+                    'qty': p.children[3].value
+                };
+            });
+            let postage = document.getElementById("postage-type").value;
+            let address = {
+                'street': document.getElementById("street").value,
+                'door': document.getElementById("door").value,
+                'corner': document.getElementById("corner").value
+            };
+            let active_option = ["bank", "card"].find(p => document.getElementById(p).checked);
+            let payment_data = {};
+            switch (active_option) {
+                case 'bank':
+                    payment_data.bank_account = document.getElementById("bank-num").value;
+                    break;
+                case 'card':
+                    payment_data.card_number = document.getElementById("card-num").value;
+                    payment_data.card_security = document.getElementById("card-sec").value;
+                    payment_data.card_validity = document.getElementById('card-ven').value;
+                    break;
+            }
+            fetch(CART_PURCHASE_URL, {
+                'method': "POST", "body": JSON.stringify(
+                    { products, postage, address, active_option, payment_data }
+                ),
+                'headers': { 'Content-Type': 'application/json' }
+            }).then(r => r.json()).then(r => {
+                document.getElementById("cart-id").innerText = r.orderId;
+                new bootstrap.Toast(document.getElementById("liveToast")).show();
+            });
         }
         form.classList.add("was-validated");
     });
 }
 
 function close_modal() {
-    var active_option = ["bank", "card"].find(p => document.getElementById(p).checked);
-    var option = { 'bank': "Transferencia bancaria", "card": "Tarjeta de crédito" }[active_option];
+    let active_option = ["bank", "card"].find(p => document.getElementById(p).checked);
+    let option = { 'bank': "Transferencia bancaria", "card": "Tarjeta de crédito" }[active_option];
     document.getElementById("pay-type").innerText = option;
 }
 
